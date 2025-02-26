@@ -14,7 +14,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/data")
+    axios.get("https://git-connect-server.vercel.app/api/data")
       .then((res) => setUsers(res.data))
       .catch((err) => console.error("Error fetching data:", err));
 
@@ -49,8 +49,8 @@ function App() {
         <InfiniteMenu items={users} />
       </div>
       {!loggedIn && (
-        <a href="http://localhost:5000/auth/github" className='absolute top-2 right-2'>
-          <button className="px-4 py-2 bg-zinc-800 text-white rounded">Sign in with GitHub</button>
+        <a href="https://git-connect-server.vercel.app/auth/github" className='absolute top-2 right-2'>
+          <button className="px-4 py-2 bg-zinc-800 text-white rounded cursor-pointer">Sign in with GitHub</button>
         </a>
       )}
     </div>

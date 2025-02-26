@@ -9,7 +9,7 @@ import User from "./models/User.js";
 
 dotenv.config();
 const app = express();
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://git-connect.vercel.app", credentials: true }));
 
 app.use(
     session({
@@ -27,7 +27,7 @@ passport.use(
         {
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-            callbackURL: "http://localhost:5000/auth/github/callback",
+            callbackURL: "https://git-connect-server.vercel.app/auth/github/callback",
         },
         async (accessToken, refreshToken, profile, done) => {
             let user = await User.findOne({ githubId: profile.id });
@@ -59,13 +59,13 @@ app.get("/auth/github", passport.authenticate("github", { scope: ["user:email"] 
 app.get(
     "/auth/github/callback",
     passport.authenticate("github", {
-        failureRedirect: "http://localhost:5173",
+        failureRedirect: "https://git-connect.vercel.app",
     }),
     (req, res) => {
         if (req.user) {
-            res.redirect(`http://localhost:5173?user=${encodeURIComponent(JSON.stringify(req.user))}`);
+            res.redirect(`https://git-connect.vercel.app?user=${encodeURIComponent(JSON.stringify(req.user))}`);
         } else {
-            res.redirect("http://localhost:5173");
+            res.redirect("https://git-connect.vercel.app");
         }
     }
 );
